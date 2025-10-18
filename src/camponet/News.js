@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
 import Newsltem from './Newsltem'
+import Spinner from './Spinner';
+
+
 
 export default class News extends Component {
 
@@ -14,12 +17,18 @@ export default class News extends Component {
     }
   }
 
-  async updateNews(pageNo) {
+  async updateNews(pageNo){
+    
+    if(this.props.setProgress) this.props.setProgress(10);
     this.setState({ loading: true });
 
-    let url = `https://newsapi.org/v2/top-headlines?country=us&apiKey=3d5715759517449ab430e8a80d52038e&page=${pageNo}&pageSize=8`;
+  let url = `https://newsapi.org/v2/top-headlines?country=us&category=${this.props.category}&apiKey=fc890f2ed51e4e8d90562bb68003f029&page=${pageNo}&pageSize=${this.props.pageSize}`; 
     let data = await fetch(url);
     let parsedData = await data.json();
+    console.log(parsedData);
+    if(this.props.setProgress) this.props.setProgress(70);
+   
+   
 
     this.setState({
       articles: parsedData.articles || [],
@@ -27,6 +36,7 @@ export default class News extends Component {
       loading: false,
       page: pageNo
     });
+   if(this.props.setProgress) this.props.setProgress(100);
   }
 
   async componentDidMount() {
@@ -38,7 +48,7 @@ export default class News extends Component {
   }
 
   handleNext = async () => {
-    if (this.state.page + 1 <= Math.ceil(this.state.totalResults / 8)) {
+    if (this.state.page + 1 <= Math.ceil(this.state.totalResults /this.props.pageSize)) {
       this.updateNews(this.state.page + 1);
     }
   }
@@ -51,8 +61,8 @@ export default class News extends Component {
 
     return (
       <div className="container my-3" >
-        <h2>News Monkey - Top Headlines</h2>
-
+        <h2 className='text-center mt-5'>News Monkey - Top Headlines</h2>
+       {this.state.loading && <Spinner/>}  
         <div className="row">
           {this.state.articles.map((element) => {
             return (
@@ -62,13 +72,16 @@ export default class News extends Component {
                   description={element.description ? element.description : ""}
                   url={element.urlToImage}
                   newurl={element.url}
+                  author={element.author}
+                  data={element.publishedAt}
+                  chanla={element.source.name} 
                 />
               </div>
             )
           })}
         </div>
 
-        {/* Pagination Buttons */}
+       
         <div className='container d-flex justify-content-between my-3'>
           <button
             disabled={this.state.page <= 1}
