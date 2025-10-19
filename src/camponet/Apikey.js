@@ -9,7 +9,7 @@ export default class Apikey extends Component {
   }
 
   componentDidMount() {
-    fetch('https://newsapi.org/v2/top-headlines?country=us&apiKey=YOUR_API_KEY')
+    fetch('https://newsapi.org/v2/top-headlines?country=in&apiKey=YOUR_API_KEY')
       .then((response) => response.json())
       .then((data) => {
         if (data.articles) {
