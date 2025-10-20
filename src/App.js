@@ -27,7 +27,7 @@ export default class App extends Component {
           <Navbar />
                     
           <Routes>
-           <Route path="/Home" element= {<News  key="general" pageSize={8} country="in" category="general" />} />
+           <Route path="/newsapp" element= {<News  key="general" pageSize={8} country="in" category="general" />} />
              <Route path="/Home" element={<News setProgress={this.setProgressa} key="general" pageSize={8} country="in" category="general" />} />
             <Route path="/general" element={<News setProgress={this.setProgressa} key="general" pageSize={8} country="in" category="general" />} />
             <Route path="/business" element={<News setProgress={this.setProgressa} key="business"pageSize={8} country="in" category="business" />} />
