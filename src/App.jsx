@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import Navbar from './camponet/Navbar';
-import News from './camponet/News';
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Loading from './camponet/Loading';
+import Navbar from './camponet/Navbar.jsx';
+import News from './camponet/News.jsx';
+import { HashRouter as Router, Routes, Route } from "react-router-dom";
+import Loading from './camponet/Loading.jsx';
 
 export default class App extends Component {
   render() {
@@ -27,7 +27,7 @@ export default class App extends Component {
           <Navbar />
                     
           <Routes>
-           <Route path="/newsapp" element= {<News  key="general" pageSize={8} country="in" category="general" />} />
+           <Route path="/" element= {<News  key="general" pageSize={8} country="in" category="general" />} />
              <Route path="/Home" element={<News setProgress={this.setProgressa} key="general" pageSize={8} country="in" category="general" />} />
             <Route path="/general" element={<News setProgress={this.setProgressa} key="general" pageSize={8} country="in" category="general" />} />
             <Route path="/business" element={<News setProgress={this.setProgressa} key="business"pageSize={8} country="in" category="business" />} />
